@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//想法 :在 MyStringBuilder类里面创建一个 能装下 500个内存块 的 内存池  内存池用静态数组存储 内存块类型为嵌套类 每个内存块初始能存100个字符
+        // MyStringBuilder 类里面两个静态方法 MyNew MyDelete   用来管理内存池的资源 
+        // 申请空间的时候 就调用MyNew 从内存池 数组中分出来资源给 对象 判断依据是 mem(内存块类)中的IsUse 是不是false 
+        // 当不用这块 资源的时候要手动释放   MyDelete给 内存池 
+// Append  Insert   Replace   ToString 这几个函数 只考虑 是否 越界 越界要释放资源到内存池中(考虑到一般用字符超过100的几率很小 所以并没有在内存池中给他分配资源而是StringBuilder类自动扩容 )。
+//其他都调用 StringBuilder自有的 相应函数
 public  class MyStringBuilder 
 {
     static int memCapcity;
